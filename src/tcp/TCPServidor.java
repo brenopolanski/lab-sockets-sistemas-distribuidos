@@ -3,11 +3,14 @@ package tcp;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TCPServidor {
 
@@ -39,21 +42,18 @@ class Connection extends Thread {
 		}
 	}
 	
-	public String getMensagem(int numeroMsg) {
+	public String getMensagem(int numeroMsg) throws FileNotFoundException {
 		String msg = "";
 		int x;
+		
 		List<String> mensagens = new ArrayList<String>();
-		mensagens.add("Uma vês eu respirei… e havia notado que eu respirava.");
-		mensagens.add("A vida não se baseia na base do baseado!");
-		mensagens.add("Estava com tanto sono que fiquei com preguiça de dormir!");
-		mensagens.add("Não me recordo de ver o rosto daquele que não vi uma vez…");
-		mensagens.add("Me lembrei que estava com tanta fome que devorei meus pensamentos.");
-		mensagens.add("A primeira vez que te vi tive a impressão de que nunca tinha te visto.");
-		mensagens.add("De cada dez pessoas que assistem TV cinco é a metade.");
-		mensagens.add("A beleza me persegue mas eu sou mais rápido.");
-		mensagens.add("Hoje lembrei que havia lembrado de uma lembrança na qual não me lembro!");
-		mensagens.add("Melhor um peito na mão, do que dois no sutiã!");
-		mensagens.add("Melhor um ovo verde na mão, do que duas batatas voadoras, nadando!");
+		
+		// Professora mudar o Path ;)
+		
+		Scanner scanner = new Scanner(new FileReader("C:\\Users\\Breno\\workspace-java\\LabSocketsMsg\\src\\tcp\\arquivo.txt")).useDelimiter("\n");
+		while (scanner.hasNext()) {
+			mensagens.add(scanner.next());
+		}		
 		
 		if (numeroMsg == 0) {
 			x = (int)Math.round(Math.random() * (mensagens.size() - 1));
